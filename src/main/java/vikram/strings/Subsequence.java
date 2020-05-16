@@ -9,11 +9,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * https://techdevguide.withgoogle.com/paths/foundational/find-longest-word-in-dictionary-that-subsequence-of-given-string#code-challenge
+ * Given a string Source and a set of words "Dictionary", find the longest word in Dictionary that is a subsequence of Source.
+ * Word W is a subsequence of Source if some number of characters, possibly zero, can be deleted from Source to form W,
+ * without reordering the remaining characters.
  */
 public class Subsequence {
     public static void main(String[] args) {
@@ -22,7 +26,6 @@ public class Subsequence {
         System.out.println(largestSubSequence(source, dictionary));
         System.out.println("=======================================================================");
         System.out.println(largestSubSequenceGreedy(source, dictionary));
-
     }
 
     /**
@@ -140,8 +143,45 @@ public class Subsequence {
 
     }
 
-    public static final Optional<Integer> findSmallestIndex(int searchStartIndex, List<Integer> matchingList) {
-        return matchingList.stream().filter(index -> index >= searchStartIndex).findFirst();
+    /**
+     * Find smallest index greater than or equal to the input param minIndex.
+     *
+     * @param minIndex
+     * @param matchingList
+     * @return
+     */
+    public static final Optional<Integer> findSmallestIndex(int minIndex, List<Integer> matchingList) {
+        // This can be expensive on a big list.
+        // matchingList.stream().filter(index -> index >= searchStartIndex).findFirst();
+        //
+        return Optional.of(binarySearch(minIndex,0,matchingList.size()-1,matchingList));
+
+    }
+
+    /**
+     * This method is not looking for exact match but the smallest
+     *
+     * @param start
+     * @param end
+     * @param matchingList
+     * @return
+     */
+    public static int binarySearch(int minIndex, int start, int end, List<Integer> matchingList) {
+        if (matchingList.isEmpty() || minIndex > matchingList.get(end)|| start > end) {
+            // no match reject;
+            return -1;
+        }
+        if (matchingList.get(start) >= minIndex) {
+            return matchingList.get(start);
+        }
+        int mid = (end - start + 1) / 2;
+        if (minIndex > matchingList.get(start+ mid)) {
+            return binarySearch(minIndex, start + mid + 1, end, matchingList);
+        } else if (minIndex < matchingList.get(start+mid)) {
+            return binarySearch(minIndex, start, start+mid - 1, matchingList);
+        }
+        // exact match.
+        return matchingList.get(start+ mid);
 
     }
 }
