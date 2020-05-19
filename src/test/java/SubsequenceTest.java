@@ -12,18 +12,20 @@ public class SubsequenceTest {
     @Test
     public void testBinarySearch() {
         Random random = new Random();
-        var list = Stream.generate(() -> random.nextInt(1000)).limit(23).sorted().collect(Collectors.toList());
+        int listSize = 23;
+        var list = Stream.generate(() -> random.nextInt(1000000)).limit(listSize).sorted().collect(Collectors.toList());
         System.out.println(list);
         // lower number then min in the list
         assertEquals(list.get(0) ,binarySearch(-11111, 0, list.size() - 1, list));
         // first in list
         assertEquals(list.get(0),binarySearch(-11111, 0, list.size() - 1, list));
         // last in list
-        assertEquals(list.get(22),binarySearch(list.get(22), 0, list.size() - 1, list));
+        assertEquals(list.get(list.size() - 1),binarySearch(list.get(list.size() - 1), 0, list.size() - 1, list));
         // mid
-        assertEquals(list.get(12),binarySearch(list.get(12), 0, list.size() - 1, list));
-        assertEquals(list.get(11),binarySearch(list.get(11), 0, list.size() - 1, list));
-        assertEquals(list.get(13),binarySearch(list.get(13), 0, list.size() - 1, list));
+        int mid = (listSize+1)/2;
+        assertEquals(list.get(mid),binarySearch(list.get(mid), 0, list.size() - 1, list));
+        assertEquals(list.get(mid-1),binarySearch(list.get(mid-1), 0, list.size() - 1, list));
+        assertEquals(list.get(mid+1),binarySearch(list.get(mid+1), 0, list.size() - 1, list));
         // random
         assertEquals(list.get(17),binarySearch(list.get(17), 0, list.size() - 1, list));
         // random
@@ -35,6 +37,7 @@ public class SubsequenceTest {
     @Test
     public void testBinarySearchEvenSizedList() {
         Random random = new Random();
+        int listSize = 24;
         var list = Stream.generate(() -> random.nextInt(1000)).limit(24).sorted().collect(Collectors.toList());
         System.out.println(list);
         // lower number then min in the list
@@ -42,11 +45,12 @@ public class SubsequenceTest {
         // first in list
         assertEquals(list.get(0),binarySearch(-11111, 0, list.size() - 1, list));
         // last in list
-        assertEquals(list.get(22),binarySearch(list.get(22), 0, list.size() - 1, list));
+        assertEquals(list.get(list.size() - 1),binarySearch(list.get(list.size() - 1), 0, list.size() - 1, list));
         // mid
-        assertEquals(list.get(12),binarySearch(list.get(12), 0, list.size() - 1, list));
-        assertEquals(list.get(11),binarySearch(list.get(11), 0, list.size() - 1, list));
-        assertEquals(list.get(13),binarySearch(list.get(13), 0, list.size() - 1, list));
+        int mid = (listSize)/2;
+        assertEquals(list.get(mid),binarySearch(list.get(mid), 0, list.size() - 1, list));
+        assertEquals(list.get(mid-1),binarySearch(list.get(mid-1), 0, list.size() - 1, list));
+        assertEquals(list.get(mid+1),binarySearch(list.get(mid+1), 0, list.size() - 1, list));
         // random
         assertEquals(list.get(17),binarySearch(list.get(17), 0, list.size() - 1, list));
         // random
