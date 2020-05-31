@@ -14,10 +14,10 @@ public class BalanceArray {
     public static void main(String[] args) {
 
         int arr[] = new int[]{1, 1, 1, 2, 1};
-        System.out.println("Array  "+ Arrays.toString(arr) + "  - " + canBalance(arr) );
+        System.out.println("Array  " + Arrays.toString(arr) + "  - " + canBalance(arr));
 
         int arr2[] = new int[]{1, 2, 3, 1, 0, 2, 3};
-        System.out.println("Array  "+ Arrays.toString(arr2) + "  - " + canBalance(arr) );
+        System.out.println("Array  " + Arrays.toString(arr2) + "  - " + canBalance(arr));
     }
 
     public static boolean canBalance(int[] nums) {
@@ -42,4 +42,17 @@ public class BalanceArray {
         return false;
     }
 
+    public String collapseDuplicates(String a) {
+        int i = 0;
+        String result = "";
+        while (i < a.length()) {
+            char ch = a.charAt(i);
+            result += ch;
+            while (a.charAt(i + 1) == ch) {
+                i++;
+            }
+            i++;
+        }
+        return result;
+    }
 }
