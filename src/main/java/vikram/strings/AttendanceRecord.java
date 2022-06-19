@@ -18,7 +18,6 @@ public class AttendanceRecord {
     public boolean checkRecord(String s) {
         int lateCount=0;
         int absentCount=0;
-        char prev;
         for (int i = 0; i < s.length(); i++) {
             if(s.charAt(i) == ABSENT) {
                 absentCount++;
